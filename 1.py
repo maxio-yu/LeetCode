@@ -7,13 +7,17 @@ class Solution:
         :type target: int
         :rtype: List[int]
         """
+        dict = {}
         length = len(nums)
-        for i in range(0, length):
-            for j in range(i+1, length):
-                if nums[i] + nums[j] == target:
-                    return [i, j]
+        for i in range(length):
+            dict[nums[i]] = i
+
+        for i in range(length):
+            if target-nums[i] in dict:
+                if dict[target-nums[i]] != i:
+                    return [i,dict[target-nums[i]]]
 
 
 
-print (Solution().twoSum([3,2,4],6))
+print (Solution().twoSum([2,3,4],6))
 
