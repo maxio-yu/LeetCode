@@ -23,20 +23,18 @@ class Solution:
         :type l2: ListNode
         :rtype: ListNode
         """
-        num1 = l1.val
-        curr = l1.next
-        place = 10
-        while (curr):
-            num1 += curr.val*place
-            curr = curr.next
+        num1 = 0
+        place = 1
+        while (l1):
+            num1 += l1.val*place
+            l1 = l1.next
             place *= 10
 
-        num2 = l2.val
-        curr = l2.next
-        place = 10
-        while (curr):
-            num2 += curr.val*place
-            curr = curr.next
+        num2 = 0 
+        place = 1
+        while (l2):
+            num2 += l2.val*place
+            l2 = l2.next
             place *= 10
 
         total = num1 + num2
