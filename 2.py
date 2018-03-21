@@ -23,28 +23,24 @@ class Solution:
         :type l2: ListNode
         :rtype: ListNode
         """
-        value = (l1.val + l2.val)%10
-        carry = (l1.val + l2.val)//10
+        carry, value = divmod(l1.val + l2.val, 10)
         ret = l3 = ListNode(value)
         l1 = l1.next
         l2 = l2.next
         while (1):
             if (l1 and l2):
-                value = (l1.val + l2.val + carry)%10
-                carry = (l1.val + l2.val + carry)//10
+                carry, value = divmod(l1.val + l2.val + carry, 10)
                 l3.next = ListNode(value)
                 l1 = l1.next
                 l2 = l2.next
                 l3 = l3.next
             elif (l1):
-                value = (l1.val + carry)%10
-                carry = (l1.val + carry)//10
+                carry, value = divmod(l1.val + carry, 10)
                 l3.next = ListNode(value)
                 l1 = l1.next
                 l3 = l3.next
             elif (l2):
-                value = (l2.val + carry)%10
-                carry = (l2.val + carry)//10
+                carry, value = divmod(l2.val + carry, 10)
                 l2 = l2.next
                 l3.next = ListNode(value)
                 l3 = l3.next
