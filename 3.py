@@ -6,25 +6,19 @@ class Solution:
         :type s: str
         :rtype: int
         """
-        str = list(s)
-        substr = []
-        max = length = 0
-        for c in str:
-            if c not in substr:
-                substr.append(c)
-                length += 1
+        max_l = start = 0
+        c_index = {}
+        for i,c in enumerate(s):
+            # c need in the sub string which start from start
+            if c in c_index and start <= c_index[c]:
+                start = c_index[c] + 1
             else:
-                rm_len = substr.index(c) + 1
-                length = length + 1 - rm_len
-                while(rm_len):
-                    substr.pop(0)
-                    rm_len -= 1
-                substr.append(c)
+                max_l = max(max_l, i-start+1)
 
-            max = length if length > max else max
+            c_index[c] = i
 
-        return max 
+        return max_l 
 
 
-string = 'aab'
+string = 'abcabcbb'
 print(Solution().lengthOfLongestSubstring(string))
