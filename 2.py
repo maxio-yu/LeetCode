@@ -23,31 +23,41 @@ class Solution:
         :type l2: ListNode
         :rtype: ListNode
         """
-        num1 = 0
-        place = 1
-        while (l1):
-            num1 += l1.val*place
-            l1 = l1.next
-            place *= 10
+        value = (l1.val + l2.val)%10
+        carry = (l1.val + l2.val)//10
+        ret = l3 = ListNode(value)
+        l1 = l1.next
+        l2 = l2.next
+        while (1):
+            if (l1 and l2):
+                value = (l1.val + l2.val + carry)%10
+                carry = (l1.val + l2.val + carry)//10
+                l3.next = ListNode(value)
+                l1 = l1.next
+                l2 = l2.next
+                l3 = l3.next
+            elif (l1):
+                value = (l1.val + carry)%10
+                carry = (l1.val + carry)//10
+                l3.next = ListNode(value)
+                l1 = l1.next
+                l3 = l3.next
+            elif (l2):
+                value = (l2.val + carry)%10
+                carry = (l2.val + carry)//10
+                l2 = l2.next
+                l3.next = ListNode(value)
+                l3 = l3.next
+            elif (carry):
+                l3.next = ListNode(carry)
+                break
+            else:
+                break
 
-        num2 = 0 
-        place = 1
-        while (l2):
-            num2 += l2.val*place
-            l2 = l2.next
-            place *= 10
+        return ret
 
-        total = num1 + num2
 
-        ret_list = last_node = ListNode(total%10)
-        total //= 10
-        while (total):
-            new_node = ListNode(total%10)
-            last_node.next = new_node
-            last_node = new_node
-            total //= 10
 
-        return ret_list
 
 
 l1 = ListNode(2)
