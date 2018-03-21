@@ -23,33 +23,30 @@ class Solution:
         :type l2: ListNode
         :rtype: ListNode
         """
-        carry, value = divmod(l1.val + l2.val, 10)
-        ret = l3 = ListNode(value)
-        l1 = l1.next
-        l2 = l2.next
-        while (1):
-            if (l1 and l2):
-                carry, value = divmod(l1.val + l2.val + carry, 10)
-                l3.next = ListNode(value)
+        ret = l3 = ListNode(0)
+        carry = 0
+        while (l1 or l2 or carry):
+            l3.next = ListNode(0)
+            v1 = v2 = 0
+            if l1:
+                l3.val += l1.val
                 l1 = l1.next
-                l2 = l2.next
-                l3 = l3.next
-            elif (l1):
-                carry, value = divmod(l1.val + carry, 10)
-                l3.next = ListNode(value)
-                l1 = l1.next
-                l3 = l3.next
-            elif (l2):
-                carry, value = divmod(l2.val + carry, 10)
-                l2 = l2.next
-                l3.next = ListNode(value)
-                l3 = l3.next
-            elif (carry):
-                l3.next = ListNode(carry)
-                break
-            else:
-                break
 
+            if l2:
+                l3.val += l2.val
+                l2 = l2.next
+
+            l3.val += carry
+            if l3.val > 9:
+                l3.val -= 10
+                carry = 1
+            else:
+                carry = 0
+
+            last = l3
+            l3 = l3.next
+
+        last.next = None
         return ret
 
 
